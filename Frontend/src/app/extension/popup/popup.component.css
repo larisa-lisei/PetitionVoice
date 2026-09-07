@@ -1,0 +1,37 @@
+
+.popup {
+    margin: 20px 10px 20px 10px;
+    text-align: center;
+}
+
+h1{
+    color: var(--important-text-color);
+    margin-bottom: 0;
+}
+
+img {
+    max-width: 400px;
+}
+
+.extension-details {
+    margin-top: 10px;
+    font-size: 1.4em;
+}
+
+::ng-deep .mat-mdc-progress-bar {
+  --mdc-linear-progress-active-indicator-color: var(--buttons-color);
+}
+
+.extension-details p {
+    margin-top: 20px;
+}
+
+.no-signatures {
+    border: 2px solid var(--important-text-color);
+    border-radius: 9px;  
+    padding: 10px;
+}
+
+button {
+    margin-top: 10px;
+}

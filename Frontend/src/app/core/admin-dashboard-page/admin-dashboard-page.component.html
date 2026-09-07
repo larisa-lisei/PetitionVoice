@@ -1,0 +1,83 @@
+<div class="admin-container">
+  <h1>Admin Dashboard - Petition Handler</h1>
+
+  <div class="header-actions">
+    <div class="filter-group">
+      <button class="f-btn pending" [class.active]="currentFilter === 'PENDING'" (click)="applyFilter('PENDING')">PENDING</button>
+      <button class="f-btn approved" [class.active]="currentFilter === 'APPROVED'" (click)="applyFilter('APPROVED')">APPROVED</button>
+      <button class="f-btn rejected" [class.active]="currentFilter === 'REJECTED'" (click)="applyFilter('REJECTED')">REJECTED</button>
+    </div>
+    
+    <button mat-icon-button (click)="loadPetitions()" title="Update Data">
+      <mat-icon>refresh</mat-icon>
+    </button>
+  </div>
+
+  <div *ngIf="loading" class="loader">Petitions are loading...</div>
+
+  <table class="admin-table" *ngIf="!loading">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Creator</th>
+        <th>Current Status</th>
+        <th>Signature Goal</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of filteredPetitions" (click)="openDetails(p)">
+        <td>{{ p.id }}</td>
+        <td><strong>{{ p.title }}</strong></td>
+        <td>{{ p.creatorName }}</td>
+        <td>
+          <span class="badge" [ngClass]="p.state.toLowerCase()">{{ p.state }}</span>
+        </td>
+        <td>{{ p.currentSignatures }} / {{ p.goal }}</td>
+        <td>
+          <button class="view-btn">View Details</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>Petition Details</h2>
+        <button class="close-x" (click)="closeModal()">X</button>
+      </div>
+      
+      <div class="modal-body" *ngIf="selectedPetition">
+        <p class="title-details"><td><strong>{{ selectedPetition.title }}</strong></td></p>
+        <img
+          [src]="selectedPetition.imageUrl ? API_URL + selectedPetition.imageUrl : '/img/implicit_petition_picture.jpg'" 
+          alt="petition image"
+        >
+        <p><strong>Category:</strong> {{ selectedPetition.category }}</p>
+        <p><strong>Description:</strong></p>
+        <div class="description-box">{{ selectedPetition.description }}</div>
+
+        <hr>
+
+        <div *ngIf="selectedPetition.state === 'PENDING'" class="admin-decision">
+          <label>Admin Feedback:</label>
+          <textarea [(ngModel)]="adminFeedback[selectedPetition.id]" placeholder="Write feedback here..."></textarea>
+          <div class="decision-row">
+            <button class="btn-approve" (click)="onApprove(selectedPetition.id)">Approve</button>
+            <button class="btn-reject" (click)="onReject(selectedPetition.id)">Reject</button>
+          </div>
+        </div>
+
+        <div *ngIf="selectedPetition.state !== 'PENDING'">
+          <p><strong>Saved Feedback:</strong> {{ selectedPetition.feedback || 'No feedback received.' }}</p>
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn-close" (click)="closeModal()">Close Window</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,84 @@
+<div>
+  <div class="landing-page-images">
+    <img src="/img/landing_page.png" alt="Landing Page Image" />
+
+    <div class="logo-container">
+      <img src="/img/logo6.png" alt="logo" />
+    </div>
+  </div>
+
+  <div class="our-section">
+    <div class="title">
+      <h1>OUR MISSION</h1>
+      <p>Empowering Citizens & Shaping Communities</p>
+    </div>
+    <div class="our-mission-points">
+      <div class="point">
+        <mat-icon class="material-symbols-outlined">travel_explore</mat-icon>
+        <h2>Discover Causes</h2>
+        <p>
+          Find petitions that matter to you - from local community issues to
+          global movements.
+        </p>
+      </div>
+      <div class="point">
+        <mat-icon class="material-symbols-outlined">draw</mat-icon>
+        <h2>Sign & Support</h2>
+        <p>Add your voice to campaigns that aim to create meaningful impact.</p>
+      </div>
+      <div class="point">
+        <mat-icon class="material-symbols-outlined">record_voice_over</mat-icon>
+        <h2>Start Your Own Petition</h2>
+        <p>
+          Create an account or log in and launch petitions to bring attention to
+          the issues you care about.
+        </p>
+      </div>
+    </div>
+
+    <button type="button" class="cta-btn" [routerLink]="['/about-us']">
+      Find More About Us
+    </button>
+  </div>
+
+  <div class="our-section" id="white-section">
+    <div class="title">
+      <h1>OUR PETITIONS</h1>
+      <p>Your voice can make a difference.</p>
+    </div>
+
+    <div class="filter-buttons">
+      <button
+        class="green-button"
+        [class.active]="activeOrder === 'recentlyadded'"
+        (click)="changeOrder('recentlyadded')"
+      >
+        Recently Added
+        <mat-icon class="material-symbols-outlined">update</mat-icon>
+      </button>
+      <button
+        class="green-button"
+        [class.active]="activeOrder === 'trending'"
+        (click)="changeOrder('trending')"
+      >
+        Trending
+        <mat-icon class="material-symbols-outlined">flash_on</mat-icon>
+      </button>
+      <button
+        class="green-button"
+        [class.active]="activeOrder === 'neargoal'"
+        (click)="changeOrder('neargoal')"
+      >
+        Near Goal
+        <mat-icon class="material-symbols-outlined">rocket_launch</mat-icon>
+      </button>
+    </div>
+
+    <app-petition-cards-section [petitions]="petitions">
+    </app-petition-cards-section>
+
+    <button type="button" class="cta-btn" [routerLink]="['/petitions']">
+      View All Petitions
+    </button>
+  </div>
+</div>

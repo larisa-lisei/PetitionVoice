@@ -1,0 +1,112 @@
+<div class="main-container" [class.right-panel-active]="modCurent === 'register'">
+  
+  <div class="form-container sign-up-container">
+    <form (submit)="submitFormular()">
+      <h1>Sign up</h1>
+
+      <div *ngIf="!isVerificationStep" class="step-container">
+        <input
+          type="email"
+          [(ngModel)]="registerData.email"
+          name="registerEmail"
+          placeholder="Email"
+          required
+        />
+        <input
+          type="password"
+          [(ngModel)]="registerData.password"
+          name="registerParola"
+          placeholder="Password"
+          required
+        />
+        <input
+          type="text"
+          [(ngModel)]="registerData.firstName"
+          name="registerFirstName"
+          placeholder="First Name"
+          required
+        />
+        <input
+          type="text"
+          [(ngModel)]="registerData.lastName"
+          name="registerLastName"
+          placeholder="Last Name"
+          required
+        />
+        <input
+          type="tel"
+          [(ngModel)]="registerData.telephone"
+          name="registerTelephone"
+          placeholder="Phone"
+        />
+
+        <button type="submit">Create Account</button>
+      </div>
+
+      <div *ngIf="isVerificationStep" class="step-container verification-step">
+        <p class="info-text">
+          Enter the code sent to <br> <strong>{{ registerData.email }}</strong>
+        </p>
+        
+        <input
+          type="text"
+          [(ngModel)]="verificationCode"
+          name="verificationCode"
+          placeholder="######"
+          maxlength="6"
+          required
+          class="code-input"
+          style="text-align: center; letter-spacing: 5px; font-weight: bold; font-size: 1.2rem;"
+        />
+
+        <button type="submit" [disabled]="verificationCode.length < 6">
+            Verify & Register
+        </button>
+        
+        <button 
+            type="button" 
+            class="ghost-dark" 
+            (click)="isVerificationStep = false"
+            style="margin-top: 10px; background: transparent; color: #666; border: 1px solid #ccc;"
+        >
+            Back
+        </button>
+      </div>
+
+    </form>
+  </div>
+
+  <div class="form-container sign-in-container">
+    <form (submit)="submitFormular()">
+      <h1>Sign in</h1>
+      <input
+        type="email"
+        [(ngModel)]="loginData.email"
+        name="loginEmail"
+        placeholder="Email"
+      />
+      <input
+        type="password"
+        [(ngModel)]="loginData.password"
+        name="loginParola"
+        placeholder="Password"
+      />
+
+      <button type="submit">Login</button>
+    </form>
+  </div>
+
+  <div class="overlay-container">
+    <div class="overlay">
+      <div class="overlay-panel overlay-left">
+        <button class="ghost" (click)="schimbaModul('login')">Login</button>
+      </div>
+
+      <div class="overlay-panel overlay-right">
+        <button class="ghost" (click)="schimbaModul('register')">
+          Sign Up
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

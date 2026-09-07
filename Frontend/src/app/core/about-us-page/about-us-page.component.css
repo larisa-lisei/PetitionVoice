@@ -1,0 +1,249 @@
+.about-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px;
+  padding-bottom: 80px;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 60px;
+}
+.title h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  color: black;
+}
+
+.section-row {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+  margin-bottom: 80px;
+}
+
+.text-column {
+  flex: 1;
+}
+
+.text-column h2 {
+  color: rgb(129, 159, 39);
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.text-column p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #444;
+  margin-bottom: 15px;
+}
+
+.image-column {
+  flex: 1;
+}
+
+.about-img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.about-img:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+.carousel-section {
+  margin-top: 100px;
+  text-align: center;
+}
+
+.carousel-title {
+  color: rgb(129, 159, 39);
+  font-size: 2.2rem;
+  margin-bottom: 30px;
+}
+
+.carousel-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  position: relative;
+}
+
+.cards-container {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 20px 5px;
+  width: 100%;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.cards-container::-webkit-scrollbar {
+  display: none;
+}
+
+.scroll-card {
+  flex: 0 0 calc((100% - 130px) / 3);
+  min-width: calc((100% - 130px) / 3);
+
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  text-align: center;
+  border: 1px solid #eee;
+  transition: transform 0.3s ease;
+
+  scroll-snap-align: start;
+}
+
+.scroll-card:hover {
+  transform: translateY(-5px);
+}
+
+.scroll-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.scroll-card h3 {
+  color: rgb(129, 159, 39);
+  margin-bottom: 10px;
+}
+
+.scroll-card p {
+  color: #555;
+  font-size: 0.95rem;
+}
+
+.nav-btn {
+  background-color: rgb(129, 159, 39);
+  color: white;
+  border: none;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.3s;
+  z-index: 10;
+}
+
+.nav-btn:hover {
+  background-color: rgb(100, 130, 30);
+}
+
+@media (max-width: 768px) {
+  .section-row {
+    flex-direction: column;
+    text-align: center;
+  }
+  .section-row:nth-child(even) {
+    flex-direction: column-reverse;
+  }
+
+  .nav-btn {
+    display: none;
+  }
+  .scroll-card {
+    flex: 0 0 85%;
+    min-width: 85%;
+  }
+
+  .cta-section {
+    height: auto;
+    padding: 80px 20px;
+  }
+  .cta-content h2 {
+    font-size: 2rem;
+  }
+}
+
+.cta-section {
+  margin-top: 100px;
+  position: relative;
+
+  background-image: url("/img/change1.jpg");
+
+  background-size: cover;
+  background-position: center 30%;
+  height: 400px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.cta-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.4),
+    rgba(0, 0, 0, 0.7)
+  );
+  z-index: 1;
+}
+
+.cta-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: white;
+  padding: 0 20px;
+  max-width: 700px;
+}
+
+.cta-content h2 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  font-weight: bold;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.cta-content p {
+  font-size: 1.2rem;
+  margin-bottom: 40px;
+  line-height: 1.6;
+  opacity: 0.95;
+}
+
+.cta-btn {
+  display: inline-block;
+  background-color: rgb(129, 159, 39);
+  color: white;
+  padding: 18px 45px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  transition: all 0.2s ease;
+}
+
+.cta-btn:hover {
+  background-color: rgb(100, 130, 30);
+  transform: translateY(-3px);
+}

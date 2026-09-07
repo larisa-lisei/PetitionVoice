@@ -1,0 +1,64 @@
+.unauthorized-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;     
+  min-height: 100vh;
+  width: 100%;
+  background: linear-gradient(#f5f7fa 33%, #c3cfe2 66%);
+  box-sizing: border-box;
+  padding: 20px;
+}
+
+.error-card {
+  background: white;
+  padding: 10rem;
+  border-radius: 50px;
+  width: 100%;
+  max-width:300px;
+  text-align: center;
+}
+
+.lock-icon {
+  font-size: 5rem;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+h1{
+    color:var(text--color);
+}
+
+p {
+  color: var(--not-important-text-color);
+  margin-bottom:10%;
+}
+
+.btnActions {
+  display: flex;
+  justify-content: center;
+  gap: 15px; 
+}
+
+.btnActions button {
+  padding: 12px 30px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-login {
+  color: white;
+}
+
+.btn-login:hover, .btn-home:hover {
+  transform: scale(1.05);
+}

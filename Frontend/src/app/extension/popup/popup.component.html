@@ -1,0 +1,23 @@
+<div class="popup">
+  <h1 *ngIf="petition; else empty">{{ petition?.title }}</h1>
+  <br>
+  <img *ngIf="petition"
+       [src]="petition?.imageUrl ? (API_URL + petition?.imageUrl) : '/img/implicit_petition_picture.jpg'" 
+       alt="petition image"
+  > 
+
+  <ng-template #empty>
+    <p>No petition today.</p>
+    <p *ngIf="lastUpdated">Last checked: {{ lastUpdated | date:'shortTime'}}</p>
+  </ng-template>
+
+  <div class="extension-details" *ngIf="petition">
+    <mat-progress-bar mode="determinate" [value]="petition?.goal ? (petition.currentSignatures / petition.goal) * 100 : 0"></mat-progress-bar>
+    <p>Signatures: <span class="no-signatures">{{ petition.currentSignatures ?? 0 }} / {{petition.goal ?? 0}}</span></p>
+  </div>
+
+  <button *ngIf="petition" (click)="openInApp()">
+      Sign Petition
+      <mat-icon class="material-symbols-outlined">edit_note</mat-icon>
+  </button>
+</div>

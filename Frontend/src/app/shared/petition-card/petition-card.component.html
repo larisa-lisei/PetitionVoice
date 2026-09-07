@@ -1,0 +1,16 @@
+<div class="petition-card">
+    <img 
+    [src]="petition.imageUrl ? petition.imageUrl : '/img/implicit_petition_picture.jpg'" 
+    alt="{{ petition.title }}"
+    class="card-img"
+    (error)="petition.imageUrl = null"
+    >
+    <div class="petition-info">
+        <h3 (click)="openDetailsDialog()">
+            {{ petition.title }}
+        </h3>
+        <p>
+            {{ petition.description }}
+        </p>
+    </div>
+</div>

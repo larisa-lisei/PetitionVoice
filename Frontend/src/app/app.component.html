@@ -1,0 +1,175 @@
+<nav *ngIf="!isDesktop">
+  <div class="nav-left">
+    <a routerLink="/home" class="logo-link">
+      <img src="/img/logo-icon.png" alt="Logo" class="site-logo" />
+    </a>
+
+    <a routerLink="/home" routerLinkActive="active" class="menu-item">
+      HOME
+      <mat-icon>home</mat-icon>
+    </a>
+
+    <a routerLink="/petitions" routerLinkActive="active" class="menu-item">
+      PETITIONS
+      <mat-icon>description</mat-icon>
+    </a>
+
+    <a routerLink="/about-us" routerLinkActive="active" class="menu-item">
+      ABOUT US
+      <mat-icon>info</mat-icon>
+    </a>
+  </div>
+
+  <div
+    class="account-area"
+    *ngIf="currentUser$ | async as user; else loginTemplate"
+  >
+    <div class="user-profile-wrapper">
+      <button
+        class="signed-in-btn"
+        (click)="toggleUserMenu()"
+        [class.active]="showUserDetails"
+      >
+        <mat-icon class="user-icon">account_circle</mat-icon>
+
+        <span class="btn-text">{{ user.firstName }}</span>
+
+        <mat-icon class="arrow-icon">{{
+          showUserDetails ? "expand_less" : "expand_more"
+        }}</mat-icon>
+      </button>
+
+      <div class="dropdown-card" *ngIf="showUserDetails">
+        <div class="dropdown-header">
+          <span>Account Details</span>
+          <button
+            *ngIf="!isEditMode"
+            (click)="enableEdit(user)"
+            class="icon-btn-edit"
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
+        </div>
+
+        <div class="dropdown-content">
+          <div class="detail-row">
+            <mat-icon class="detail-icon">badge</mat-icon>
+            <div class="text-group">
+              <span class="label">First Name</span>
+              <span *ngIf="!isEditMode" class="value">{{
+                user.firstName
+              }}</span>
+              <input
+                *ngIf="isEditMode"
+                type="text"
+                [(ngModel)]="editFirstName"
+                class="edit-input"
+              />
+            </div>
+          </div>
+
+          <div class="detail-row">
+            <mat-icon class="detail-icon">badge</mat-icon>
+            <div class="text-group">
+              <span class="label">Last Name</span>
+              <span *ngIf="!isEditMode" class="value">{{ user.lastName }}</span>
+              <input
+                *ngIf="isEditMode"
+                type="text"
+                [(ngModel)]="editLastName"
+                class="edit-input"
+              />
+            </div>
+          </div>
+
+          <div class="detail-row">
+            <mat-icon class="detail-icon">phone</mat-icon>
+            <div class="text-group">
+              <span class="label">Phone Number</span>
+              <span class="value">{{ user.telephone || "Not set" }}</span>
+            </div>
+          </div>
+
+          <div class="detail-row">
+            <mat-icon class="detail-icon">email</mat-icon>
+            <div class="text-group">
+              <span class="label">Email Address</span>
+              <span class="value">{{ user.email }}</span>
+            </div>
+          </div>
+
+          <div class="edit-actions" *ngIf="isEditMode">
+            <button (click)="saveChanges(user)" class="save-btn">Save</button>
+            <button (click)="cancelEdit()" class="cancel-btn">Cancel</button>
+          </div>
+        </div>
+
+        <div class="dropdown-footer">
+          <a
+            routerLink="/user-dashboard"
+            class="dashboard-btn-full"
+            (click)="showUserDetails = false"
+          >
+            USER DASHBOARD
+            <mat-icon>dashboard</mat-icon>
+          </a>
+
+          <button (click)="logout()" class="logout-btn-full">
+            LOGOUT
+            <mat-icon>logout</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #loginTemplate>
+    <a
+      id="account"
+      routerLink="/login"
+      routerLinkActive="active"
+      class="menu-item"
+    >
+      LOGIN
+      <mat-icon class="material-symbols-outlined">account_circle</mat-icon>
+    </a>
+  </ng-template>
+</nav>
+
+<main class="main">
+  <router-outlet></router-outlet>
+</main>
+
+<footer>
+  <p>Make your voice count. Sign petitions for a better society.</p>
+  <p>
+    <img src="/img/footer-picture3.png" alt="footer" />
+  </p>
+
+  <div class="footer-description">
+    <div class="footer-info">
+      <div class="info">
+        <p>Email Address</p>
+        <p></p>
+        <p>petition_voice&#64;gmail.com</p>
+      </div>
+      <div class="info">
+        <p>Phone Number</p>
+        <p></p>
+        <p>+40 756 902 336</p>
+      </div>
+      <div class="info">
+        <p>Location</p>
+        <p></p>
+        <p>Iasi, Romania</p>
+      </div>
+      <div class="info">
+        <p>Working Hours</p>
+        <p></p>
+        <p>Mon-Fri, 9:00 AM - 5:00 PM</p>
+      </div>
+    </div>
+  </div>
+
+  <b><p>&copy; 2025 PetitionVoice. All rights reserved.</p></b>
+</footer>

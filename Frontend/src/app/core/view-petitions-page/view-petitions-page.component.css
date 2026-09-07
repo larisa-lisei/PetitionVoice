@@ -1,0 +1,165 @@
+.petitions-page {
+  display: flex;
+  flex-direction: column;
+}
+
+.petitions-section {
+  background-color: var(--section-color);
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 30px 0px 25px 0px;
+  margin-bottom: 50px;
+  max-width: 100%;
+}
+
+.petitions-section p {
+  font-size: 1.1em;
+  text-shadow: 2px 2px 4px #919090;
+  align-self: center;
+  max-width: 90%;
+  text-align: center;
+}
+
+.petitions-section button {
+  margin: 20px 0;
+}
+
+.petitions-content img {
+  height: 15vh;
+  align-self: center;
+}
+
+.search-filter-category {
+  max-width: 100%;
+  margin: 0 12%;
+}
+
+.search-and-filter {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.search-input-wrapper {
+  position: relative;
+  width: 60%;
+}
+
+.search-input-wrapper #search-input {
+  width: calc(100% - 30px);
+}
+
+.search-input-wrapper #search-input,
+#filters {
+  height: 40px;
+  border-radius: 9px;
+  border: 2px solid var(--important-text-color);
+  padding: 0 30px 0 10px;
+}
+
+#search-input:focus,
+#filters:focus {
+  outline: none;
+  border-color: rgb(76, 99, 6);
+  box-shadow: 2px 2px 4px #919090;
+}
+
+.clear-button {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: var(--not-important-text-color);
+  background: transparent;
+  padding: 0;
+}
+
+.clear-button:hover {
+  color: black;
+}
+
+.filter-select {
+  width: 40%;
+  display: flex;
+  flex-direction: row;
+}
+
+#filters {
+  width: 100%;
+  height: 44px;
+}
+
+.category-list {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.petitions {
+  margin: 50px 10%;
+}
+
+.petitions-page button {
+  width: fit-content;
+  align-self: center;
+}
+
+.pagination {
+  margin: 0 10px 50px 10px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.pagination button,
+.pagination span {
+  background-color: transparent;
+  border: 2px solid var(--important-text-color);
+  border-radius: 9px;
+  color: var(--not-important-text-color);
+  padding: 10px 15px;
+}
+
+.pagination span {
+  font-weight: bold;
+}
+
+.pagination button:hover {
+  background-color: var(--important-text-color);
+  color: white;
+}
+
+.prev-page {
+  margin-right: 10px;
+}
+
+.next-page {
+  margin-left: 10px;
+}
+
+.cta-btn {
+  display: inline-block;
+  text-align: center;
+
+  background-color: #ff7f00 !important;
+  color: white !important;
+
+  padding: 18px 45px;
+  border-radius: 50px !important;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  border: none !important;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cta-btn:hover {
+  background-color: #d16800 !important;
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}

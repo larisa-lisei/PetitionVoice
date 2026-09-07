@@ -1,0 +1,113 @@
+<div class="petition-details-dialog">
+    <h1>{{ data.title }}</h1>
+    <img [src]="data.img" alt="petition image">
+    
+    <div class="category-signatures">
+        <div class="detail" id="category">
+            <p>{{ data.category.replace('_', ' ') }}</p>
+        </div>
+        <mat-progress-bar mode="determinate" [value]="(data.count / data.goal) * 100"></mat-progress-bar>
+        <div class="detail" id="signatures">
+            <p>Signatures:</p>
+            <p>{{data.count}} / {{data.goal}}</p>
+        </div>
+    </div>
+
+    <div class="details-container">
+        <div>
+            <div class="detail">
+                <p>Description:</p>
+                <p id="description-content">{{ data.description }}</p>
+            </div>
+        </div>
+        <div>
+            <div class="detail">
+                <p>Petition started on:</p>
+                <p>{{ data.creationDate | date:'dd-MM-yyyy' }}</p>
+            </div>
+            <div class="detail">
+                <p>Last day to sign:</p>
+                <p>{{ data.expirationDate | date:'dd-MM-yyyy' }}</p>
+            </div>
+        
+            <div class="detail">
+                <p>Created by:</p>
+                <p>{{ data.creator }}</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="sign-form">
+        <form [formGroup]="signForm" (ngSubmit)="onSubmit()">
+            
+            <div *ngIf="authService.isLoggedIn()" class="logged-in-info">
+                <p>You will sign this petition as: 
+                    <strong>{{authService.getCurrentUserValue()?.firstName}} {{authService.getCurrentUserValue()?.lastName}}</strong>
+                </p>
+            </div>
+
+            <div *ngIf="!authService.isLoggedIn() && !isVerificationStep">
+                <div>
+                    <label>First Name:</label>
+                    <input type="text" formControlName="firstName" [class.error-border]="signForm.get('firstName')?.invalid && signForm.get('firstName')?.touched">
+                    <small class="error-msg" *ngIf="signForm.get('firstName')?.invalid && signForm.get('firstName')?.touched">
+                        First Name is required (min 2 chars).
+                    </small>
+                </div>
+                <div>
+                    <label>Last Name:</label>
+                    <input type="text" formControlName="lastName" [class.error-border]="signForm.get('lastName')?.invalid && signForm.get('lastName')?.touched">
+                    <small class="error-msg" *ngIf="signForm.get('lastName')?.invalid && signForm.get('lastName')?.touched">
+                        Last Name is required (min 2 chars).
+                    </small>
+                </div>
+                <div>
+                    <label>Email:</label>
+                    <input type="text" formControlName="email" [class.error-border]="signForm.get('email')?.invalid && signForm.get('email')?.touched">
+                    <small class="error-msg" *ngIf="signForm.get('email')?.invalid && signForm.get('email')?.touched">
+                        Please enter a valid email.
+                    </small>
+                </div>
+                <div>
+                    <label>Phone:</label>
+                    <input type="text" formControlName="phone" [class.error-border]="signForm.get('phone')?.invalid && signForm.get('phone')?.touched">
+                    <small class="error-msg" *ngIf="signForm.get('phone')?.invalid && signForm.get('phone')?.touched">
+                        Phone must be exactly 10 digits.
+                    </small>
+                </div>
+            </div>
+
+            <div *ngIf="!authService.isLoggedIn() && isVerificationStep" class="verification-step" style="text-align: center;">
+                <p style="margin-bottom: 10px;">
+                    Please enter the code sent to <strong>{{ signForm.value.email }}</strong>
+                </p>
+                
+                <input 
+                    type="text" 
+                    [(ngModel)]="verificationCode" 
+                    [ngModelOptions]="{standalone: true}"
+                    placeholder="######"
+                    maxlength="6"
+                    style="text-align: center; letter-spacing: 5px; font-weight: bold; font-size: 1.2rem; width: 60%; margin: 0 auto 15px auto;"
+                >
+                
+                <div style="margin-top: 10px;">
+                    <button type="button" (click)="isVerificationStep = false" 
+                            style="background-color: transparent; border: 1px solid #ccc; color: #333; padding: 10px 20px; font-size: 0.9rem;">
+                        Back
+                    </button>
+                </div>
+            </div>
+
+            <button type="submit" [disabled]="(!authService.isLoggedIn() && isVerificationStep && verificationCode.length < 6)">
+                
+                <span *ngIf="authService.isLoggedIn()">Sign Petition</span>
+                <span *ngIf="!authService.isLoggedIn() && !isVerificationStep">Next</span>
+                <span *ngIf="!authService.isLoggedIn() && isVerificationStep">Verify & Sign</span>
+                
+                <mat-icon class="material-symbols-outlined" *ngIf="authService.isLoggedIn() || isVerificationStep">edit_note</mat-icon>
+            </button>
+
+        </form>
+    </div>
+</div>

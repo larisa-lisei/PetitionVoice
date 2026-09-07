@@ -1,0 +1,98 @@
+/* You can add global styles to this file, and also import other style files */
+:root {
+  --background-color: #ffffff;
+  --section-color: #f5f3f0;
+  --buttons-color: rgb(243, 127, 32);
+  --text-color: black;
+  --important-text-color: rgb(144, 174, 55);
+  --not-important-text-color: rgb(150, 150, 150);
+}
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Roboto, Arial, sans-serif;
+}
+
+button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: white;
+  background-color: var(--buttons-color);
+  padding: 15px 20px;
+  border: none;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  font-size: medium;
+}
+
+button:hover {
+  cursor: pointer;
+  background-color: rgb(255, 115, 0);
+}
+
+button mat-icon {
+  vertical-align: middle;
+}
+
+.green-button {
+  background-color: var(--important-text-color);
+}
+
+.green-button:hover {
+  background-color: rgb(129, 159, 39);
+}
+
+.title {
+  text-align: center;
+  margin: 40px 0;
+}
+
+.title p {
+  color: var(--not-important-text-color);
+}
+
+.title h1 {
+  text-shadow: 2px 2px 4px #919090;
+  text-align: center;
+}
+
+.category-list button:hover {
+  background-color: rgba(144, 174, 55, 0.15);
+  border-radius: 9px;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.site-logo {
+  height: 40px;
+  width: auto;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.site-logo:hover {
+  transform: scale(1.1);
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  text-decoration: none;
+
+  transition: transform 0.3s ease;
+}
+
+.menu-item:hover {
+  transform: scale(1.1);
+}

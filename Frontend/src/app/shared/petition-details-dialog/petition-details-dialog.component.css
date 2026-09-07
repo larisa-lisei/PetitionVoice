@@ -1,0 +1,171 @@
+.petition-details-dialog {
+  background-color: var(--section-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h1 {
+  color: var(--important-text-color);
+  margin: 25px 40px 20px 40px;
+}
+
+::ng-deep .mat-mdc-progress-bar {
+  --mdc-linear-progress-active-indicator-color: var(--buttons-color);
+}
+
+p {
+  font-size: 1.1em;
+  padding: 10px 5px;
+}
+
+.details-container,
+.category-signatures {
+  width: 80%;
+}
+
+img {
+    width: 80%;
+    height: 600px;
+    object-fit: cover;
+    border-radius: 9px;
+    display: block;
+    margin: 0 auto;
+
+}
+
+
+#category,
+#signatures {
+  justify-self: center;
+  text-align: center;
+}
+
+#category {
+  margin-bottom: 20px;
+}
+
+#signatures {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+}
+
+#signatures p {
+  margin-top: 20px;
+}
+
+.details-container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.details-container > div {
+  flex: 1;
+}
+
+.details-container > div:first-child .detail {
+  height: 100%;
+}
+
+#description-content {
+  min-height: 70%;
+  text-align: start;
+}
+
+.detail p:first-child {
+  color: var(--important-text-color);
+  font-weight: bold;
+  margin-bottom: 0;
+}
+
+.detail p:nth-child(2) {
+  border: 2px solid var(--important-text-color);
+  border-radius: 9px;
+  background-color: white;
+  margin-top: 0;
+}
+
+.detail p:nth-child(2):not(#description-content) {
+  text-align: center;
+}
+
+button {
+  background-color: #ff7f00;
+  color: white;
+
+  border-radius: 50px;
+  border: none;
+  padding: 15px 45px;
+
+  font-size: 1.2rem;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  margin: 20px;
+  margin-bottom: 35px;
+
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+  background-color: #d16800;
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.sign-form {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 35px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 520px;
+
+  border: 2px solid var(--buttons-color);
+  border-radius: 9px;
+  padding-top: 35px;
+  margin-top: 30px;
+  text-align: center;
+}
+
+form > div {
+  width: 80%;
+  margin: 0 auto;
+}
+
+form label {
+  display: block;
+  text-align: left;
+  margin-bottom: 6px;
+}
+
+input {
+  width: 100%;
+  border: 2px solid var(--important-text-color);
+  border-radius: 9px;
+  padding: 10px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+input:focus,
+input:hover {
+  outline: none;
+  border-color: rgb(76, 99, 6);
+  box-shadow: 2px 2px 4px #919090;
+}

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <body>
+    <div class="dashboard-container">
+      <ng-container *ngIf="currentUser$ | async as user; else loadingTemplate">
+        <header class="dashboard-header">
+          <div class="avatar-circle">
+            {{ user.firstName.charAt(0) }}{{ user.lastName.charAt(0) }}
+          </div>
+          <div class="header-text">
+            <h1>Hello, {{ user.firstName }}!</h1>
+            <p>Welcome to your profile!</p>
+          </div>
+        </header>
+
+        <div class="info-grid">
+          <div class="info-card accent-blue">
+            <span class="label">Full Name</span>
+            <span class="value">{{ user.firstName }} {{ user.lastName }}</span>
+          </div>
+
+          <div class="info-card accent-green">
+            <span class="label">Email</span>
+            <span class="value email-value">{{ user.email }}</span>
+          </div>
+
+          <div class="info-card accent-orange">
+            <span class="label">Phone Number</span>
+            <span class="value">{{ user.telephone || "Not set" }}</span>
+          </div>
+        </div>
+        <div class="stats-section">
+          <h3 class="section-title">Your Impact</h3>
+          <div class="stats-grid">
+            <div class="stat-card blue-stat">
+              <div class="stat-top">
+                <span class="stat-number">{{
+                  stats.signedPetitionsCount
+                }}</span>
+                <span class="stat-label">Signed Petitions</span>
+              </div>
+              <div class="progress-bg">
+                <div
+                  class="progress-fill fill-blue"
+                  [style.width.%]="signedPercent"
+                ></div>
+              </div>
+              <span class="stat-percent"
+                >{{ signedPercent }}% of total activity</span
+              >
+            </div>
+
+            <div class="stat-card red-stat">
+              <div class="stat-top">
+                <span class="stat-number">{{
+                  stats.createdPetitionsCount
+                }}</span>
+                <span class="stat-label">Created Petitions</span>
+              </div>
+              <div class="progress-bg">
+                <div
+                  class="progress-fill fill-red"
+                  [style.width.%]="createdPercent"
+                ></div>
+              </div>
+              <span class="stat-percent"
+                >{{ createdPercent }}% of total activity</span
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="activity-section">
+          <div class="tabs-header">
+            <button
+              class="tab-btn"
+              [class.active]="activeTab === 'signed'"
+              (click)="setActiveTab('signed')"
+            >
+              Signed List
+            </button>
+            <button
+              class="tab-btn"
+              [class.active]="activeTab === 'approved'"
+              (click)="setActiveTab('approved')"
+            >
+              Approved
+            </button>
+            <button
+              class="tab-btn"
+              [class.active]="activeTab === 'pending'"
+              (click)="setActiveTab('pending')"
+            >
+              Pending
+            </button>
+            <button
+              class="tab-btn"
+              [class.active]="activeTab === 'rejected'"
+              (click)="setActiveTab('rejected')"
+            >
+              Rejected
+            </button>
+          </div>
+
+          <div *ngIf="isLoadingActivity" class="loading-activity">
+            Loading...
+          </div>
+
+          <div *ngIf="!isLoadingActivity" class="tab-content">
+            <div *ngIf="activeTab === 'signed'">
+              <div *ngIf="signedPetitions.length > 0; else noSigned">
+                <div class="petition-list">
+                  <div
+                    *ngFor="let petition of signedPetitions"
+                    class="petition-wrapper"
+                  >
+                    <div
+                      class="petition-item signed-border"
+                      (click)="toggleDetails(petition.id)"
+                      [class.expanded]="expandedPetitionId === petition.id"
+                    >
+                      <div class="petition-info">
+                        <span class="petition-cat">{{
+                          petition.category
+                        }}</span>
+                        <h3 class="petition-title">{{ petition.title }}</h3>
+                      </div>
+                      <div class="status-badge badge-signed">Signed</div>
+                    </div>
+
+                    <div
+                      *ngIf="expandedPetitionId === petition.id"
+                      class="petition-details signed-details-border"
+                    >
+                      <p class="detail-description">
+                        {{ petition.description }}
+                      </p>
+                      <div class="detail-stats">
+                        <div class="detail-stat-row">
+                          <span class="detail-label">Signatures:</span>
+                          <span class="detail-value"
+                            >{{ petition.currentSignatures }} /
+                            {{ petition.goal }}</span
+                          >
+                        </div>
+                        <div class="mini-progress-bg">
+                          <div
+                            class="mini-progress-fill fill-blue"
+                            [style.width.%]="
+                              getProgress(
+                                petition.currentSignatures,
+                                petition.goal
+                              )
+                            "
+                          ></div>
+                        </div>
+                        <div class="detail-date">
+                          Expires on:
+                          {{ petition.expirationDate | date : "mediumDate" }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <ng-template #noSigned>
+                <div class="empty-state">No signed petitions yet.</div>
+              </ng-template>
+            </div>
+
+            <div *ngIf="activeTab !== 'signed'">
+              <div
+                *ngIf="filteredCreatedPetitions.length > 0; else noCreatedInTab"
+              >
+                <div class="petition-list">
+                  <div
+                    *ngFor="let petition of filteredCreatedPetitions"
+                    class="petition-wrapper"
+                  >
+                    <div
+                      class="petition-item created-border"
+                      (click)="toggleDetails(petition.id)"
+                      [class.expanded]="expandedPetitionId === petition.id"
+                    >
+                      <div class="petition-info">
+                        <span class="petition-cat">{{
+                          petition.category
+                        }}</span>
+                        <h3 class="petition-title">{{ petition.title }}</h3>
+                      </div>
+
+                      <div
+                        class="status-badge"
+                        [ngClass]="getStatusClass(petition.state)"
+                      >
+                        {{ petition.state }}
+                      </div>
+                    </div>
+
+                    <div
+                      *ngIf="expandedPetitionId === petition.id"
+                      class="petition-details created-details-border"
+                    >
+                      <div
+                        *ngIf="
+                          petition.state === 'REJECTED' && petition.feedback
+                        "
+                        class="feedback-alert"
+                      >
+                        <div class="feedback-header">
+                          <strong>Admin Feedback:</strong>
+                        </div>
+                        <p class="feedback-text">
+                          {{ petition.feedback }}
+                        </p>
+                      </div>
+                      <p class="detail-description">
+                        {{ petition.description }}
+                      </p>
+                      <div class="detail-stats">
+                        <div class="detail-stat-row">
+                          <span class="detail-label">Signatures:</span>
+                          <span class="detail-value"
+                            >{{ petition.currentSignatures }} /
+                            {{ petition.goal }}</span
+                          >
+                        </div>
+                        <div class="mini-progress-bg">
+                          <div
+                            class="mini-progress-fill fill-red"
+                            [style.width.%]="
+                              getProgress(
+                                petition.currentSignatures,
+                                petition.goal
+                              )
+                            "
+                          ></div>
+                        </div>
+                        <div class="detail-date">
+                          Expires on:
+                          {{ petition.expirationDate | date : "mediumDate" }}
+                        </div>
+                      </div>
+
+                      <div
+                        class="action-footer"
+                        *ngIf="petition.state === 'REJECTED'"
+                      >
+                        <button
+                          class="btn-edit-rejected"
+                          (click)="editRejectedPetition(petition)"
+                        >
+                          Edit & Resubmit
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <ng-template #noCreatedInTab>
+                <div class="empty-state">
+                  No {{ activeTab }} petitions found.
+                </div>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <ng-template #loadingTemplate>
+        <div class="loading-state">Loading...</div>
+      </ng-template>
+    </div>
+  </body>
+</html>

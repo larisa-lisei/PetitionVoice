@@ -1,0 +1,79 @@
+<div class="petitions-page">
+  <div class="title">
+    <h1>PETITIONS</h1>
+    <p>Your voice can make a difference.</p>
+  </div>
+
+  <img src="/img/hands.png" alt="View Petitions Page Image" />
+  <div class="petitions-section">
+    <p>Browse active petitions and discover causes from various categories.</p>
+    <p>Use search and filters to find petitions that match your interests.</p>
+
+    <button type="button" class="cta-btn" [routerLink]="['/create-petition']">
+      Start Your Own Petition
+    </button>
+  </div>
+
+  <div class="search-filter-category">
+    <div class="search-and-filter">
+      <div class="search-input-wrapper">
+        <input
+          type="text"
+          id="search-input"
+          name="search-input"
+          placeholder="Search petitions..."
+          [(ngModel)]="keyword"
+          (keyup.enter)="onSearch()"
+        />
+
+        <button class="clear-button" *ngIf="keyword" (click)="clearSearch()">
+          X
+        </button>
+      </div>
+
+      <div class="filter-select">
+        <select
+          name="filters"
+          id="filters"
+          #filters
+          (change)="onOrderChange(filters.value)"
+        >
+          <option value="recentlyadded">Recently Added</option>
+          <option value="trending">Trending</option>
+          <option value="neargoal">Near Goal</option>
+          <option value="leastsigned">Least Signed</option>
+          <option value="closingsoon">Closing Soon</option>
+        </select>
+      </div>
+    </div>
+    <div class="category-list">
+      <mat-chip-listbox
+        aria-label="Petition categories"
+        multiple
+        [formControl]="selectedCategoriesControl"
+      >
+        <mat-chip-option value="animals">Animals</mat-chip-option>
+        <mat-chip-option value="human_rights">Human Rights</mat-chip-option>
+        <mat-chip-option value="environment">Environment</mat-chip-option>
+        <mat-chip-option value="education">Education</mat-chip-option>
+        <mat-chip-option value="healthcare">Healthcare</mat-chip-option>
+        <mat-chip-option value="culture">Culture</mat-chip-option>
+      </mat-chip-listbox>
+    </div>
+  </div>
+
+  <div class="petitions">
+    <app-petition-cards-section [petitions]="petitions">
+    </app-petition-cards-section>
+  </div>
+
+  <div class="pagination">
+    <button (click)="prevPage()" class="prev-page" [disabled]="page === 0">
+      &lt;
+    </button>
+    <span> {{ page + 1 }}</span>
+    <button (click)="nextPage()" class="next-page" [disabled]="!hasNext">
+      &gt;
+    </button>
+  </div>
+</div>

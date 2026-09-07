@@ -1,0 +1,72 @@
+<div class="page-container">
+  <div class="form-card">
+    <h1 class="title">Create a new petition</h1>
+    <p class="subtitle">Fill the form accordingly.</p>
+
+    <form [formGroup]="petitionForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label>Category</label>
+        <select formControlName="category">
+          <option value="" selected disabled hidden>Choose here</option>
+          <option value="Animals">Animals</option>
+          <option value="Environment">Environment</option>
+          <option value="HumanRights">Human Rights</option>
+          <option value="Education">Education</option>
+          <option value="HealthCare">HealthCare</option>
+          <option value="Culture">Culture</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Title</label>
+        <input type="text" formControlName="title" />
+      </div>
+
+      <div class="form-group">
+        <label>Goal Signatures</label>
+        <input type="number" formControlName="goal" />
+      </div>
+
+      <div class="form-group">
+        <label>Expiration Date</label>
+        <input type="date" formControlName="expirationDate" />
+      </div>
+
+      <div class="form-group">
+        <label>Description</label>
+        <textarea
+          formControlName="description"
+          rows="5"
+          placeholder="Description..."
+        ></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Petition Image (Optional)</label>
+        
+        <input 
+          type="file" 
+          (change)="onFileSelected($event)" 
+          accept="image/*" 
+          class="file-input"
+        >
+
+        <div *ngIf="previewUrl" class="image-preview-container">
+          <img [src]="previewUrl" alt="Petition Preview" class="preview-img">
+          <button type="button" (click)="clearImage()" class="btn-clear">Remove Image</button>
+        </div>
+      </div>
+
+      <div class="btnAction">
+        <button
+          type="submit"
+          [disabled]="petitionForm.invalid || !selectedFile"
+          class="btn-submit"
+        >
+          Send Petition
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>
