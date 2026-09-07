@@ -83,11 +83,10 @@ The extension communicates with the backend to retrieve petition information wit
 PetitionVoice follows a client-server architecture in which multiple clients communicate with the same Spring Boot backend through REST APIs.
 
 ```text
-                      Angular Web App ────────┐
-                         │
- Desktop Admin App ──────┼── REST/HTTP ──> Spring Boot Backend ──> MySQL
-                         │                                      (Docker)
- Browser Extension ──────┘
+
+Angular Web App ────────┐
+Desktop Admin App ──────┼── REST/HTTP ──> Spring Boot Backend ──> MySQL
+Browser Extension ──────┘                                      (Docker)
  
 ```
 
